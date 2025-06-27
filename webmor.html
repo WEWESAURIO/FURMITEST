@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre el Peine Ideal para tu Lomito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .header img {
+            max-width: 180px; /* Ajusta el tamaño de tu logo */
+            height: auto;
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #555;
+        }
+        input[type="text"], input[type="file"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        input[type="file"] {
+            padding: 8px;
+            cursor: pointer;
+        }
+        button {
+            background-color: #28a745; /* Botón verde para iniciar */
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #loadingMessage {
+            margin-top: 20px;
+            font-style: italic;
+            color: #007bff;
+            font-weight: bold;
+        }
+        #resultsSection {
+            text-align: left;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+        .model-output {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .model-output h3 {
+            color: #007bff;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .model-output img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+        .model-output p {
+            margin: 8px 0;
+            font-size: 1em;
+        }
+        .model-link {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            display: block;
+        }
+        .final-summary {
+            background-color: #e6f7ff;
+            border: 2px solid #b3e0ff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+        }
+        .final-summary strong {
+            color: #003366;
+        }
+        .product-recommendation {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #d4edda; /* Verde claro para la recomendación */
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .product-recommendation h3 {
+            color: #155724; /* Verde oscuro */
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+        .product-recommendation p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .product-recommendation img {
+            max-width: 200px; /* Tamaño de la imagen del producto */
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+        }
+        .product-recommendation a.buy-button {
+            display: inline-block;
+            background-color: #ffc107; /* Amarillo para el botón de comprar */
+            color: #343a40;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+        .product-recommendation a.buy-button:hover {
+            background-color: #e0a800;
+        }
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        /* Estilo para los emojis en el enlace MG5 */
+        .mg5-link-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .mg5-link {
+            font-size: 1.2em;
+            color: #007bff; /* Color del enlace */
+            text-decoration: none; /* Sin subrayado por defecto */
+            font-weight: bold;
+        }
+        .mg5-link:hover {
+            text-decoration: underline; /* Subrayado al pasar el ratón */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="img/logo-grupo-mor.jpg" alt="Logo de tu Marca">
+            <h1>Descubre el Peine Ideal para tu Lomito</h1>
+            <p>¡Ayúdanos a conocer mejor a tu compañero peludo para recomendarte el mejor cepillo!</p>
+        </div>
+
+        <form id="dogForm">
+            <label for="dogName">¿Cómo se llama tu lomito?</label>
+            <input type="text" id="dogName" placeholder="Ej: Max, Luna, Toby" required>
+
+            <label for="dogImage">Sube una foto de tu perrito:</label>
+            <input type="file" id="dogImage" accept="image/*" required>
+
+            <button type="submit">Iniciar Análisis</button>
+        </form>
+
+        <p id="loadingMessage" class="hidden">Analizando la foto de <span id="loadingDogName"></span>, ¡esto puede tardar unos segundos!</p>
+        <p id="errorMessage" class="error-message hidden"></p>
+
+        <div id="resultsSection" class="hidden">
+            <h2>Resultados del Análisis para <span id="analyzedDogName"></span></h2>
+
+            <p>La foto de tu perrito fue analizada por nuestros modelos de Inteligencia Artificial. Aquí puedes ver los resultados:</p>
+
+            <div class="model-output">
+                <h3>Modelo de Tipo de Pelo</h3>
+                <img id="hairModelImg" src="#" alt="Foto del perro para modelo de pelo">
+                <p><strong>URL del Modelo:</strong> <span class="model-link-text-hair"></span></p>
+                <div id="hairLabels"></div>
+                <p class="model-link">**Indicativo:** Si la probabilidad es mayor al 50%, esa es la característica principal de tu perro.</p>
+                <a id="hairModelLink" href="#" target="_blank" class="mg5-link">📊 Ver modelo de pelo en Teachable Machine 🚀</a>
+            </div>
+
+            <div class="model-output">
+                <h3>Modelo de Tamaño de Mascota</h3>
+                <img id="sizeModelImg" src="#" alt="Foto del perro para modelo de tamaño">
+                <p><strong>URL del Modelo:</strong> <span class="model-link-text-size"></span></p>
+                <div id="sizeLabels"></div>
+                <p class="model-link">**Indicativo:** Si la probabilidad es mayor al 50%, esa es la característica principal de tu perro.</p>
+                <a id="sizeModelLink" href="#" target="_blank" class="mg5-link">📊 Ver modelo de tamaño en Teachable Machine 🚀</a>
+            </div>
+
+            <div class="final-summary">
+                <h3>Conclusión para <span id="finalDogName"></span>:</h3>
+                <p>Tu lomito es de <strong><span id="finalHairType"></span></strong> y tiene un tamaño <strong><span id="finalSize"></span></strong>.</p>
+            </div>
+
+            <div id="productRecommendation" class="product-recommendation hidden">
+                <h3>¡Tu Peine Ideal es: <span id="recommendedProductName"></span>!</h3>
+                <img id="recommendedProductImage" src="#" alt="Imagen del producto recomendado">
+                <p id="recommendedProductDescription"></p>
+                <a id="recommendedProductLink" href="#" target="_blank" class="buy-button">Comprar Ahora</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        // ¡IMPORTANTE! Reemplaza estas URLs con las de tus modelos de Teachable Machine
+        const HAIR_MODEL_URL = "https://teachablemachine.withgoogle.com/models/Y1dLqr1KAL/";
+        const SIZE_MODEL_URL = "https://teachablemachine.withgoogle.com/models/8-cZeD8Cp/";
+
+        // --- BASE DE DATOS DE PRODUCTOS ---
+        // ¡Las claves de los productos DEBEN COINCIDIR EXACTAMENTE con las CLASES PREDICHAS por tus modelos!
+        const products = {
+            // Formato: "TIPO DE PELO PREDICHO_TAMAÑO PREDICHO"
+            // Asegúrate de que "SHORT HAIR" y "LONG HAIR" coincidan exactamente con tus clases de modelo de pelo
+            // Y "Estatura Grande", "Estatura mediano", "Estatura pequeño" con tus clases de modelo de tamaño.
+
+            "SHORT HAIR_Estatura Grande": {
+                name: "FURMINATOR UNDERCOAT LG DOG SHORT HAIR",
+                description: "Herramienta de Shedding para perros raza grande de pelo corto",
+                image: "img/PEINE L_SHORT HAIR.jpg", // Asegúrate de que la imagen se llame exactamente así
+                link: "https://grupomor.pe/producto/furminator-short-hair-deshedding-tools-for-dog-lg/"
+            },
+            "LONG HAIR_Estatura Grande": {
+                name: "FURMINATOR UNDERCOAT LG DOG LONG HAIR",
+                description: "Herramienta de Shedding para perros de raza grande de pelo largo",
+                image: "img/PEINE L_LONG HAIR.jpg", // Asegúrate de que la imagen se llame exactamente así
+                link: "https://grupomor.pe/producto/furminator-long-hair-deshedding-tools-for-dog-lg/"
+            },
+            "SHORT HAIR_Estatura mediano": {
+                name: "FURMINATOR UNDERCOAT MD DOG SHORT HAIR",
+                description: "Herramienta de Shedding para perros de raza mediana de pelo corto",
+                image: "img/PEINE M_SHORT HAIR.jpg", // Asegúrate de que la imagen se llame exactamente así
+                link: "https://grupomor.pe/producto/furminator-short-hair-deshedding-tools-for-dog-md/"
+            },
+            "LONG HAIR_Estatura mediano": {
+                name: "FURMINATOR UNDERCOAT MD DOG LONG HAIR",
+                description: "Herramienta de Shedding para perros de raza mediana de pelo largo",
+                image: "img/PEINE M_LONG HAIR.jpg", // Asegúrate de que la imagen se llame exactamente así
+                link: "https://grupomor.pe/producto/furminator-long-hair-deshedding-tools-for-dog-md/"
+            },
+            "SHORT HAIR_Estatura pequeño": {
+                name: "FURMINATOR UNDERCOAT SM DOG SHORT HAIR",
+                description: "Herramienta de Shedding para perros de raza pequeña de pelo corto",
+                image: "img/PEINE S_SHORT HAIR.jpg", // Asegúrate de que la imagen se llame exactamente así
+                link: "https://grupomor.pe/producto/furminator-undercoat-sm-dog-short-hair/"
+            },
+            "LONG HAIR_Estatura pequeño": {
+                name: "FURMINATOR UNDERCOAT SM DOG LONG HAIR",
+                description: "Herramienta de Shedding para perros de raza pequeña de pelo largo",
+                image: "img/PEINE S_LONG HAIR", // Corregido a PEINE S_LONG HAIR.jpg, verifica el nombre de tu archivo.
+                link: "https://grupomor.pe/producto/furminator-long-hair-deshedding-tools-for-dog-sm/"
+            }
+        };
+
+        let hairModel, sizeModel;
+        let hairMaxPredictions, sizeMaxPredictions;
+        let currentImageFile = null;
+        let currentDogName = '';
+
+        // Cargar ambos modelos al inicio
+        async function loadModels() {
+            try {
+                const hairModelURL = HAIR_MODEL_URL + "model.json";
+                const hairMetadataURL = HAIR_MODEL_URL + "metadata.json";
+                hairModel = await tmImage.load(hairModelURL, hairMetadataURL);
+                hairMaxPredictions = hairModel.getTotalClasses();
+                console.log("Modelo de pelo cargado.");
+                document.getElementById('hairModelLink').href = HAIR_MODEL_URL;
+                document.querySelector('.model-link-text-hair').textContent = HAIR_MODEL_URL;
+
+
+                const sizeModelURL = SIZE_MODEL_URL + "model.json";
+                const sizeMetadataURL = SIZE_MODEL_URL + "metadata.json";
+                sizeModel = await tmImage.load(sizeModelURL, sizeMetadataURL);
+                sizeMaxPredictions = sizeModel.getTotalClasses();
+                console.log("Modelo de tamaño cargado.");
+                document.getElementById('sizeModelLink').href = SIZE_MODEL_URL;
+                document.querySelector('.model-link-text-size').textContent = SIZE_MODEL_URL;
+
+
+            } catch (error) {
+                console.error("Error al cargar los modelos:", error);
+                document.getElementById('errorMessage').textContent = 'Error al cargar los modelos de IA. Por favor, verifica las URLs e intenta de nuevo. Revisa la consola del navegador (F12) para más detalles.';
+                document.getElementById('errorMessage').classList.remove('hidden');
+            }
+        }
+
+        // Cargar los modelos cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', loadModels);
+
+        document.getElementById('dogForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            currentDogName = document.getElementById('dogName').value;
+            currentImageFile = document.getElementById('dogImage').files[0];
+
+            if (!currentImageFile || !currentDogName) {
+                alert('Por favor, ingresa el nombre de tu perrito y sube una foto.');
+                return;
+            }
+
+            if (!hairModel || !sizeModel) {
+                alert('Los modelos de IA aún no están cargados. Por favor, espera un momento y vuelve a intentar. Si el problema persiste, recarga la página.');
+                return;
+            }
+
+            document.getElementById('dogForm').classList.add('hidden');
+            document.getElementById('loadingDogName').textContent = currentDogName;
+            document.getElementById('loadingMessage').classList.remove('hidden');
+            document.getElementById('errorMessage').classList.add('hidden');
+            document.getElementById('resultsSection').classList.add('hidden'); // Ocultar resultados anteriores
+
+            try {
+                const img = await loadImage(currentImageFile);
+
+                const hairPrediction = await hairModel.predict(img);
+                const sizePrediction = await sizeModel.predict(img);
+
+                displayResults(currentDogName, currentImageFile, hairPrediction, sizePrediction);
+
+            } catch (error) {
+                console.error("Error durante la predicción:", error);
+                document.getElementById('errorMessage').textContent = 'Ocurrió un error al procesar la imagen. Intenta con otra foto o asegúrate que es una imagen de un perro.';
+                document.getElementById('errorMessage').classList.remove('hidden');
+                document.getElementById('dogForm').classList.remove('hidden');
+            } finally {
+                document.getElementById('loadingMessage').classList.add('hidden');
+            }
+        });
+
+        function loadImage(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function displayResults(dogName, imageFile, hairPrediction, sizePrediction) {
+            document.getElementById('analyzedDogName').textContent = dogName;
+            document.getElementById('finalDogName').textContent = dogName;
+
+            const imageUrl = URL.createObjectURL(imageFile);
+            document.getElementById('hairModelImg').src = imageUrl;
+            document.getElementById('sizeModelImg').src = imageUrl;
+
+            // --- Procesar Pelo ---
+            const hairLabelsDiv = document.getElementById('hairLabels');
+            hairLabelsDiv.innerHTML = '';
+            let bestHairClass = '';
+            let bestHairProb = 0;
+
+            for (let i = 0; i < hairMaxPredictions; i++) {
+                const classPrediction = hairPrediction[i].className + ": " + (hairPrediction[i].probability * 100).toFixed(2) + "%";
+                const p = document.createElement("p");
+                p.textContent = classPrediction;
+                hairLabelsDiv.appendChild(p);
+
+                if (hairPrediction[i].probability * 100 > bestHairProb) {
+                    bestHairProb = hairPrediction[i].probability * 100;
+                    bestHairClass = hairPrediction[i].className;
+                }
+            }
+            document.getElementById('hairModelLink').href = `${HAIR_MODEL_URL}?image=${encodeURIComponent(imageUrl)}`;
+            document.querySelector('.model-link-text-hair').textContent = HAIR_MODEL_URL;
+
+
+            // --- Procesar Tamaño ---
+            const sizeLabelsDiv = document.getElementById('sizeLabels');
+            sizeLabelsDiv.innerHTML = '';
+            let bestSizeClass = '';
+            let bestSizeProb = 0;
+
+            for (let i = 0; i < sizeMaxPredictions; i++) {
+                const classPrediction = sizePrediction[i].className + ": " + (sizePrediction[i].probability * 100).toFixed(2) + "%";
+                const p = document.createElement("p");
+                p.textContent = classPrediction;
+                sizeLabelsDiv.appendChild(p);
+
+                if (sizePrediction[i].probability * 100 > bestSizeProb) {
+                    bestSizeProb = sizePrediction[i].probability * 100;
+                    bestSizeClass = sizePrediction[i].className;
+                }
+            }
+            document.getElementById('sizeModelLink').href = `${SIZE_MODEL_URL}?image=${encodeURIComponent(imageUrl)}`;
+            document.querySelector('.model-link-text-size').textContent = SIZE_MODEL_URL;
+
+
+            // --- Determinar característica final (con umbral del 50%) ---
+            const threshold = 50; // Umbral de confianza
+            let finalHairType = "indefinido"; // Usaremos estas para la clave del producto
+            let finalSize = "indefinido";
+
+            // Lógica para tipo de pelo (usan los nombres exactos de tus clases de TM: "LONG HAIR", "SHORT HAIR")
+            if (bestHairProb >= threshold) {
+                if (bestHairClass === "LONG HAIR") {
+                    finalHairType = "LONG HAIR";
+                } else if (bestHairClass === "SHORT HAIR") {
+                    finalHairType = "SHORT HAIR";
+                }
+            }
+
+            // Lógica para tamaño (usan los nombres exactos de tus clases de TM: "Estatura Grande", "Estatura mediano", "Estatura pequeño")
+            if (bestSizeProb >= threshold) {
+                if (bestSizeClass === "Estatura Grande") {
+                    finalSize = "Estatura Grande";
+                } else if (bestSizeClass === "Estatura mediano") {
+                    finalSize = "Estatura mediano";
+                } else if (bestSizeClass === "Estatura pequeño") {
+                    finalSize = "Estatura pequeño";
+                }
+            }
+
+            // Actualizar la conclusión final
+            document.getElementById('finalHairType').textContent = finalHairType !== "indefinido" ? finalHairType : "no determinado con confianza";
+            document.getElementById('finalSize').textContent = finalSize !== "indefinido" ? finalSize : "no determinado con confianza";
+
+            // --- Lógica de Recomendación de Producto ---
+            // La clave de búsqueda ahora usará los nombres exactos de las clases predichas por el modelo
+            const productKey = `${finalHairType}_${finalSize}`; // Ejemplo: "SHORT HAIR_Estatura Grande"
+            const recommendedProduct = products[productKey];
+
+            const productRecommendationDiv = document.getElementById('productRecommendation');
+            if (recommendedProduct && finalHairType !== "indefinido" && finalSize !== "indefinido") {
+                document.getElementById('recommendedProductName').textContent = recommendedProduct.name;
+                document.getElementById('recommendedProductImage').src = recommendedProduct.image;
+                document.getElementById('recommendedProductDescription').textContent = recommendedProduct.description;
+                document.getElementById('recommendedProductLink').href = recommendedProduct.link;
+                productRecommendationDiv.classList.remove('hidden');
+            } else {
+                productRecommendationDiv.classList.add('hidden');
+                // Muestra un mensaje alternativo si no se encontró un producto o si la confianza es baja
+                const finalSummary = document.querySelector('.final-summary p');
+                if (finalHairType === "indefinido" || finalSize === "indefinido") {
+                    finalSummary.innerHTML += "<br>No pudimos determinar con suficiente confianza el tipo de pelo o tamaño para recomendar un producto específico. ¡Intenta con otra foto!";
+                } else {
+                    finalSummary.innerHTML += `<br>¡Ups! Parece que no tenemos un producto específico para la combinación <strong>${finalHairType}</strong> y Tamaño <strong>${finalSize}</strong>. Pronto tendremos más opciones.`;
+                }
+            }
+
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
